@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { ModalProvider } from "./modalContext";
+import Component from "./component";
+// import Component2 from "./component2";
+import './App.css'
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App container mx-auto px-8 text-gray-700">
+      <h1 className="text-3xl">Hello CodeSandbox</h1>
+      <h2 className="text-xl mb-6">Start editing to see some magic happen!</h2>
+      <ModalProvider>
+        <Component />
+        {/* <Component2 /> */}
+      </ModalProvider>
     </div>
   );
 }
-
-export default App;
