@@ -9,10 +9,10 @@ export default function App() {
     <div className="App container mx-auto px-8 text-gray-700">
       <h1 className="text-3xl">Hello CodeSandbox</h1>
       <h2 className="text-xl mb-6">Start editing to see some magic happen!</h2>
-      <ModalProvider>
+      {/* <ModalProvider> */}
         <Component />
         {/* <Component2 /> */}
-      </ModalProvider>
+      {/* </ModalProvider> */}
     </div>
   );
 }

@@ -1,35 +1,28 @@
 import React from 'react'
-import { ModalContext } from './modalContext'
+import Modal from './Modal'
+import useModal from './useModal'
 
-const Child = () => {
-  let { handleModal } = React.useContext(ModalContext)
+const Parent = ({onClose}) => {
 
-  return (
-    <div>
-      <button onClick={() => handleModal('Parent')}>Child button</button>
-      <h3>Child header</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui, ea.</p>
-    </div>
-  )
-}
+  let { open: parentOpen, toggleOpen: parentToggle, onClose: parentClose } = useModal()
 
-const Parent = () => {
-  let { handleModal } = React.useContext(ModalContext)
+//   let { toggleOpen } = useModal()
 
-  //   const parentHandleModal  = (child) => {
+  //   const parenttoggleOpen  = (child) => {
 
-  //     handleModal(child)
-  //     handleModal()
+  //     toggleOpen(child)
+  //     toggleOpen()
   //   }
 
   return (
     <div>
-      {/* <button onClick={() => parentHandleModal(<Child />)}>
-        parent button
-      </button> */}
-      <button onClick={() => handleModal()}>parent button</button>
+     <Modal open={parentOpen} onClose={parentClose} toggleOpen={parentToggle}>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Et veritatis omnis explicabo voluptas eum expedita, dignissimos non deserunt cum vel.</p>
+    </Modal>
+
+      <button onClick={() => parentToggle()}>parent button</button>
       <h3>Parent header</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui, ea.</p>
+      {/* <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui, ea.</p> */}
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga impedit
         unde nesciunt beatae eos ut magnam adipisci totam sapiente reprehenderit
@@ -58,17 +51,27 @@ const Parent = () => {
 }
 
 const Component = () => {
-  let { handleModal } = React.useContext(ModalContext)
+  let { open, toggleOpen, onClose } = useModal()
+
+const toggleOpens = () => {
+    toggleOpen()
+}
 
   return (
     <>
+
+    <Modal open={open} toggleOpen={toggleOpens}>
+        <Parent onClose={onClose} />
+        {/* Hello */}
+    </Modal>
+
       <p>
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque quidem
         asperiores?
       </p>
       <button
         className="mt-6 rounded  bg-purple-700 text-purple-100 px-5 h-12"
-        onClick={() => handleModal(<Parent />)}
+        onClick={() => toggleOpens()}
       >
         open this modal!
       </button>

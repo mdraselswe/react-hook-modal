@@ -1,15 +1,11 @@
 import React from 'react'
 
 export default () => {
-  let [modal, setModal] = React.useState(false)
-  let [modalContent, setModalContent] = React.useState("I'm the Modal Content")
+  const [open, setOpen] = React.useState(false)
 
-  let handleModal = (content = false) => {
-    setModal(!modal)
-    if (content) {
-      setModalContent(content)
-    }
-  }
+  const toggleOpen = () => setOpen(!open)
 
-  return { modal, handleModal, modalContent }
+  const onClose = () => setOpen(false)
+
+  return { open, toggleOpen, onClose }
 }
