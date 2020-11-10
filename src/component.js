@@ -2,27 +2,29 @@ import React from 'react'
 import Modal from './Modal'
 import useModal from './useModal'
 
-const Parent = ({onClose}) => {
-
-  let { open: parentOpen, toggleOpen: parentToggle, onClose: parentClose } = useModal()
-
-//   let { toggleOpen } = useModal()
-
-  //   const parenttoggleOpen  = (child) => {
-
-  //     toggleOpen(child)
-  //     toggleOpen()
-  //   }
+const Child = () => {
+  let { open: childOpen, toggleOpen: childToggle } = useModal()
 
   return (
     <div>
-     <Modal open={parentOpen} onClose={parentClose} toggleOpen={parentToggle}>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Et veritatis omnis explicabo voluptas eum expedita, dignissimos non deserunt cum vel.</p>
-    </Modal>
+      <Modal open={childOpen} toggleOpen={childToggle} maxWidth={800}>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Et veritatis
+          omnis explicabo voluptas eum expedita, dignissimos non deserunt cum
+          vel.
+        </p>
+      </Modal>
 
-      <button onClick={() => parentToggle()}>parent button</button>
-      <h3>Parent header</h3>
-      {/* <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui, ea.</p> */}
+      <button
+        onClick={childToggle}
+        style={{
+          backgroundColor: 'lightblue',
+          padding: 20,
+        }}
+      >
+        Open child modal!
+      </button>
+      <h3>child header</h3>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga impedit
         unde nesciunt beatae eos ut magnam adipisci totam sapiente reprehenderit
@@ -51,27 +53,25 @@ const Parent = ({onClose}) => {
 }
 
 const Component = () => {
-  let { open, toggleOpen, onClose } = useModal()
+  let { open, toggleOpen } = useModal()
 
-const toggleOpens = () => {
+  const toggleOpens = () => {
     toggleOpen()
-}
+  }
 
   return (
     <>
+      <Modal open={open} toggleOpen={toggleOpens}>
+        <Child />
+      </Modal>
 
-    <Modal open={open} toggleOpen={toggleOpens}>
-        <Parent onClose={onClose} />
-        {/* Hello */}
-    </Modal>
-
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque quidem
-        asperiores?
-      </p>
+      <h1>Hello, Welcome to Modal Testing Screen </h1>
       <button
-        className="mt-6 rounded  bg-purple-700 text-purple-100 px-5 h-12"
         onClick={() => toggleOpens()}
+        style={{
+          backgroundColor: 'salmon',
+          padding: 20,
+        }}
       >
         open this modal!
       </button>

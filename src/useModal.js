@@ -1,7 +1,7 @@
-import React from 'react'
+import { useState } from 'react'
 
-export default () => {
-  const [open, setOpen] = React.useState(false)
+const useModal = () => {
+  const [open, setOpen] = useState(false)
 
   const toggleOpen = () => setOpen(!open)
 
@@ -9,3 +9,5 @@ export default () => {
 
   return { open, toggleOpen, onClose }
 }
+
+export default useModal

@@ -1,44 +1,59 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-// scroll = 'body' || scroll = 'paper'
+/**
+ * NOTE:: props definition
+ * two types scroll,
+ *    scroll = 'body' (scroll fullscreen)  ||
+ *    scroll = 'paper' (scroll paper)
+ *    open = true/false (If true, show modal)
+ *    toggleOpen = function (modal show/hide)
+ *    children (modal content)
+ *    disableBackdropClick = true/false (If true, clicking the backdrop will not fire)
+ *    close = true/false (If false, modal closing button will not be shown)
+ *    maxWidth = any amount of number, like 400 (modal maximum width)
+ *    fullScreen = true/false (If true, modal will be full screen)
+ **/
+
 const Modal = ({
   open,
+  onClose,
   toggleOpen,
   children,
   scrollType = 'body',
   disableBackdropClick = false,
-  cross = true,
+  close = true,
   maxWidth = 400,
   fullScreen = false,
 }) => {
   const handleModal = (e) => {
-    // When disableBackdropClick  is true the background is not closed
     if (!disableBackdropClick) {
       e.stopPropagation()
       toggleOpen()
     }
   }
 
-  const handleModalContainerClassName = () => {
-    let names = ''
+  const handleModalClassName = () => {
+    let classes = ''
 
     if (scrollType === 'paper' && !fullScreen) {
-      names = `${names} paper-scroll`
+      classes = `${classes} paper-scroll`
     }
 
     if (fullScreen) {
-      names = `${names} full-screen`
+      classes = `${classes} full-screen`
     }
 
-    return names
+    return classes
   }
+
+  const modalClassName = handleModalClassName()
 
   if (open) {
     return ReactDOM.createPortal(
       <div
-        className={`modal fade-in ${
-          scrollType === 'body' ? 'modal__scroll' : ''
+        className={`modal-container ${
+          scrollType === 'body' ? 'body-scroll' : ''
         }`}
         onClick={handleModal}
       >
@@ -49,14 +64,14 @@ const Modal = ({
           <div
             onClick={(e) => e.stopPropagation()}
             style={{ maxWidth: !fullScreen && `${maxWidth}px` }}
-            className={`modal-container ${handleModalContainerClassName()}`}
+            className={`modal ${modalClassName}`}
           >
-            {cross && (
-              <button className="modal-close" onClick={() => toggleOpen()}>
+            {close && (
+              <button className="modal-close" onClick={ () => toggleOpen()}>
                 &times;
               </button>
             )}
-            <p>{children}</p>
+            {children}
           </div>
         </div>
       </div>,
